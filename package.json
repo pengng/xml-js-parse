@@ -1,28 +1,27 @@
 {
-  "name": "xmltojs",
+  "name": "xml-js-parse",
   "version": "0.0.1",
-  "description": "xml to js",
+  "description": "Parse the xml as a js object or build an xml through a js object",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pengng/xmltojs.git"
+    "url": "git+https://github.com/pengng/xml-js-parse.git"
   },
   "keywords": [
+    "parse",
+    "build",
     "xml",
     "js"
   ],
   "author": "yupeng.kuo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/pengng/xmltojs/issues"
+    "url": "https://github.com/pengng/xml-js-parse/issues"
   },
-  "homepage": "https://github.com/pengng/xmltojs#readme",
-  "dependencies": {
-    "xml2js": "^0.4.19"
-  },
+  "homepage": "https://github.com/pengng/xml-js-parse#readme",
   "devDependencies": {
     "mocha": "^4.0.1"
   }

@@ -1,7 +1,6 @@
 const assert = require('assert')
 const Parser = require('../index').Parser
 const XMLParserError = require('../lib/error').XMLParserError
-const XMLParser = require('xml2js').Parser
 
 describe('test parser.js', function () {
   describe('test matchAttributes()', function () {
@@ -84,6 +83,10 @@ describe('test parser.js', function () {
           }, '222'] }
         }
       })
+    })
+    it('if has quota in childList', function () {
+      const xml = '<xml>\'>">"\'></xml>'
+      assert.deepEqual(parser.parseString(xml), { xml: '\'>">"\'>'})
     })
   })
 })

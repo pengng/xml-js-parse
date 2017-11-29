@@ -7,7 +7,8 @@ describe('test builder.js', function () {
     it('test normal', function () {
       const obj = { name: 'xiaobai', age: 12, isVip: true }
       const xml = 
-`<root>
+`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
   <name>xiaobai</name>
   <age>12</age>
   <isVip>true</isVip>
@@ -30,7 +31,8 @@ describe('test builder.js', function () {
         ]
       }
       const xml = 
-`<root>
+`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
   <users>
     <name>xiaobai</name>
     <age>11</age>
@@ -44,6 +46,38 @@ describe('test builder.js', function () {
   </users>
 </root>`
       assert.equal(builder.buildObject(obj), xml)
+    })
+  })
+  describe('test _getDeclaration()', function () {
+    it('if config xmldec', function () {
+      const options = {
+        xmldec: {
+          version: '1.1',
+          encoding: 'utf-8',
+          standalone: false
+        }
+      }
+      const builder = new Builder(options)
+      assert.equal(builder._getDeclaration(), `<?xml version="${options.xmldec.version}" encoding="${options.xmldec.encoding}" standalone="${options.xmldec.standalone ? 'yes' : 'no'}"?>\n`)
+    })
+    it('if headless is true', function () {
+      const builder = new Builder({ headless: true })
+      assert.equal(builder._getDeclaration(), '')
+    })
+  })
+  describe('test _wrapCdata()', function () {
+    it('if cdata was true', function () {
+      const builder = new Builder({ cdata: true })
+      assert.equal(builder._wrapCdata('<'), '<![CDATA[<]]>')
+      assert.equal(builder._wrapCdata('&'), '<![CDATA[&]]>')
+      assert.equal(builder._wrapCdata('<&>]]>&&>'), '<![CDATA[<&>]]&gt;&&>]]>')
+    })
+  })
+  describe('test _getEntityReference()', function () {
+    it('test normal', function () {
+      const builder = new Builder()
+      const str = '<a>b&c\'d"e'
+      assert.equal(builder._getEntityReference(str), '&lt;a&gt;b&amp;c&apos;d&quot;e')
     })
   })
 })
